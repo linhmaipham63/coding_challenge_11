@@ -101,6 +101,16 @@ class Library {
         // Updates the borrower's borrowedBooks list
         foundBorrower.borrowBook(foundBook.title); 
     }
+
+     // Task 5: Add method returnBook(borrowerId, isbn) in the Library class
+     returnBook(borrowerId, isbn) {
+        const bookReturned = this.books.find(book => book.isbn === isbn);
+        const borrowerReturn = this.borrowers.find(borrower => borrower.borrowerId === borrowerId); 
+
+        if (!bookReturned || !borrowerReturn) return `Book or borrower not found`;
+        bookReturned.copies += 1; // Increases the book’s available copies 
+        borrowerReturn.returnBook(bookReturned.title); // Removes the book from the borrower’s borrowed list
+    }
 }
 
 // Test Cases:
@@ -119,3 +129,11 @@ console.log(book1.getDetails());
 
 console.log(borrower1.borrowedBooks);
 
+
+// Task 5: Implementing Book Returns
+
+// Test Cases:
+library.returnBook(201, 123456);
+console.log(book1.getDetails());
+
+console.log(borrower1.borrowedBooks);
